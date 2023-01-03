@@ -1,0 +1,46 @@
+clear all; %clear workspace window
+close all; %close all window except command window
+clc; %clear command window
+N = input("Enter the number of signals to be multiplexed: ");
+f = zeros(1,N);
+for i = 1:N
+    f(i) = input("Enter the frequency of the signal: ");
+end
+fs = 4*max(f);
+T = input("Enter the duration over which the signal to be plotted: ");
+t = 0:T/fs:T;
+Q = zeros(1, N*length(t));
+R = Q;
+S = Q;
+for i=1:N
+    Q(:,((i-1)*length(t))+1:i*length(t)) = cos(2*pi*f(i)*t);
+end
+j = 1;
+for i=0:N:length(Q)-N
+    for n = 1:N
+        R(i+n) = Q(j+(n-1)*length(t));
+        S(j+(n-1)*length(t))=R(i+n);
+    end
+    j = j +1;
+end
+t1 = 0:T/fs:T;
+for i = length(t1)+1:length(Q)
+    t1(i)=t1(length(t1));
+end
+subplot(N+2,1,1)%plotting Carrier Signals
+plot(t1,Q)
+title("Signals to be multiplexed");
+xlabel("Time(sec)---->");
+ylabel("Amplitude--->");
+subplot(N+2,1,2)%plotting Multiplexed Signals
+stem(t1,R)
+title("Multiplexed Sinals");
+xlabel("Time(sec)---->");
+ylabel("Amplitude--->");
+for i = 1:N
+    subplot(N+2,1,i+2)%plotting De-Multiplexed Signals
+    plot(t,S(:,((i-1)*length(t))+1:i*length(t)));
+    title("Demultiplexed Signal");
+    xlabel("Time(sec)---->");
+ylabel("Amplitude--->");
+end
