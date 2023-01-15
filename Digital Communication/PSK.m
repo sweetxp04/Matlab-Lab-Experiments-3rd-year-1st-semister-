@@ -1,7 +1,7 @@
 clear all;
 close all;
 clc;
-amp =2;
+amp =input("Enter amplitude of the carrier signal: ");;
 f1 = input("Enter frequency of the carrier signal: ");
 f2 = input("Enter frequency of the message signal: ");
 t = 0.001:0.001:1;

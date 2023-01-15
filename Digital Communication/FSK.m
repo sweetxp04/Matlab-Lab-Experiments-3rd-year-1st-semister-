@@ -1,6 +1,6 @@
-clear all;
-close all;
-clc;
+clear all; %clear workspace window
+close all; %close all window except command window
+clc; %clear command window
 
 amp = input("Enter amplitude of the carriers: ");
 f1 = input("Enter frequency of the first carrier: ");
@@ -52,11 +52,4 @@ plot(t,mbit);
 title("FSK Signal");
 xlabel("Time in sec");
 ylabel("Amplitude");
-
-
-
-
-
-
-
 
